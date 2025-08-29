@@ -16,20 +16,71 @@ while (playAgian == true)
 static void Game(ref bool playAgian, ref string playerName)
 {
 
-
     int fighter1HP = 100;
-    int fighter1ATK = Random.Shared.Next(5, 15);
+    int fighetr1StunChans = 1;
     int fighter2HP = 100;
-    int fighter2ATK = Random.Shared.Next(5, 15);
+    int fighetr2StunChans = 1;
 
 
     while (fighter1HP > 0 && fighter2HP > 0)
     {
-        fighter1HP -= fighter2ATK;
-        fighter2HP -= fighter1ATK;
 
-        Console.WriteLine($"{playerName} tog {fighter2ATK} skada och har {fighter1HP} liv kvar");
-        Console.WriteLine($"fighetr 2 tog {fighter1ATK} skada och har {fighter2HP} liv kvar");
+        int fighter1ATK = Random.Shared.Next(5, 15);
+        int fighter2ATK = Random.Shared.Next(5, 15);
+        int whoStart = Random.Shared.Next(1, 3);
+
+        if (whoStart <= 1)
+        {
+            if (fighter1HP > 0 && fighetr2StunChans != 5)
+            {
+                fighter2HP -= fighter1ATK;
+                Console.WriteLine($"fighetr 2 tog {fighter1ATK} skada och har {fighter2HP} liv kvar");
+                fighetr1StunChans = Random.Shared.Next(1, 6);
+                if (fighetr1StunChans == 5 && fighetr2StunChans != 5)
+                {
+                    Console.WriteLine("och blev stunad");
+                }
+            }
+
+            if (fighter2HP > 0 && fighetr1StunChans != 5)
+            {
+                fighter1HP -= fighter2ATK;
+                Console.WriteLine($"{playerName} tog {fighter2ATK} skada och har {fighter1HP} liv kvar");
+                fighetr2StunChans = Random.Shared.Next(1, 6);
+                if (fighetr1StunChans != 5 && fighetr2StunChans == 5)
+                {
+                    Console.WriteLine("och blev stunad");
+                }
+            }
+        }
+
+        if (whoStart >= 2)
+        {
+            if (fighter2HP > 0 && fighetr1StunChans != 5)
+            {
+                fighter1HP -= fighter2ATK;
+                Console.WriteLine($"{playerName} tog {fighter2ATK} skada och har {fighter1HP} liv kvar");
+                fighetr2StunChans = Random.Shared.Next(1, 6);
+                if (fighetr2StunChans == 5 && fighetr1StunChans != 5)
+                {
+                    Console.WriteLine("och blev stunad");
+                }
+            }
+
+            if (fighter1HP > 0 && fighetr2StunChans != 5)
+            {
+                fighter2HP -= fighter1ATK;
+                Console.WriteLine($"fighetr 2 tog {fighter1ATK} skada och har {fighter2HP} liv kvar");
+                fighetr1StunChans = Random.Shared.Next(1, 6);
+                if (fighetr1StunChans == 5 && fighetr2StunChans != 5)
+                {
+                    Console.WriteLine("och blev stunad");
+                }
+            }
+        }
+
+
+
 
         fighter1ATK = Random.Shared.Next(5, 15);
         fighter2ATK = Random.Shared.Next(5, 15);
